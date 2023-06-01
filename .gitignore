@@ -1,3 +1,21 @@
 .env
 .tfstate
 .terraform
+
+# Terraform artifacts
+*.terraform
+*.tfstate
+*.tfstate.*
+terraform-provider-azurerm_v*
+terraform-provider-random_v*
+*.terraform.lock.hcl
+
+# Terraform logs
+crash.log
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+*plan*
+!terraform-plan.yml
+!src/bicep/**
+*.plan*
