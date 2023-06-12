@@ -18,12 +18,13 @@ resource "azurerm_network_interface" "windows_vm" {
 
   ip_configuration {
     name                          = "${var.name}_IPCONFIG"
-    subnet_id                     = var.vm_subnet_id
+    subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
 resource "azurerm_windows_virtual_machine" "windows_vm" {
+  depends_on = [azurerm_network_interface.windows_vm]
   name                = var.name
   resource_group_name = var.resource_group_name
   location            = var.location

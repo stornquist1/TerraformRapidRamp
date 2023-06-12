@@ -21,7 +21,7 @@ variable "subnet_name" {
   type        = string
 }
 
-variable "vm_subnet_id" {
+variable "subnet_id" {
   description = "The name of the subnet the virtual machine resides in"
   type        = string
 }
@@ -39,11 +39,12 @@ variable "size" {
 variable "admin_username" {
   description = "The admin username of the virtual machine"
   type        = string
+  default = "azureuser"
 }
 
 variable "admin_password" {
   description = "The admin password of the virtual machine"
   type        = string
   sensitive   = true
+  default = "rapidRamp1"
 }
-

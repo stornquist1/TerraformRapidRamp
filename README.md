@@ -18,4 +18,4 @@
 
 ### Connect to Azure via Service Principal: https://developer.hashicorp.com/terraform/tutorials/azure-get-started/azure-build  
 
-### Start Deploying! 
+### Start Deploying!
