@@ -28,9 +28,43 @@ module "myVnet_Snet" {
     subnet_address_space = ["10.0.2.0/24"]
 }
 
+locals{
+    vmMap1= {
+        "vm1" = {
+            name = "my-F2-vm-0"
+            size = "Standard_F2"
+        },
+        "vm2" = {
+            name = "my-A1-vm-0"
+            size = "Standard_A1_v2"
+        },
+        "vm3" = {
+            name = "my-A1-vm-1"
+            size = "Standard_A1_v2"
+        }
+    }
+
+    vMap2= {
+        "vm1" = {
+            name = "my-F2-vm-0"
+            size = "Standard_F2"
+            num = 5
+        },
+        "vm2" = {
+            name = "my-A1-vm-0"
+            size = "Standard_A1_v2"
+            num = 5
+        },
+        1 = {
+            name = "my-A1-vm-1"
+            size = "Standard_A1_v2"
+        }
+    }
+}
+
 module "myVM1" {
     source = "./modules/windows-virtual-machine"
-    for_each = var.vm_map
+    for_each = local.vmMap1
 
     resource_group_name = azurerm_resource_group.myRG.name
     location = azurerm_resource_group.myRG.location

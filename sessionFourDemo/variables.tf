@@ -7,7 +7,7 @@ variable "location" {
 variable "rg_name" {
   description = "Resource Group name"
   type        = string
-  default = "my-virtual-network"
+  default = "my-resource-group"
 }
 
 variable "vnet_address_space" {
@@ -47,21 +47,17 @@ variable "vm_map" {
         size = string
     }))
     default = {
-        0 = {
+        "vm1" = {
             name = "my-F2-vm"
             size = "Standard_F2"
         },
-        1 = {
+        "vm2" = {
             name = "my-A1-vm"
             size = "Standard_A1_v2"
         },
-        2 = {
-            name = "my-A8-vm"
-            size = "Standard_A8m_v2"
-        },
-        3 = {
-            name = "my-DC1-vm"
-            size = "Standard_DC1s_v2"
+        "vm3" = {
+            name = "my-A1-vm-1"
+            size = "Standard_A1_v2"
         }
     }
 }
