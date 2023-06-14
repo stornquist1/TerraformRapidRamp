@@ -29,13 +29,13 @@ resource "azurerm_user_assigned_identity" "demo" {
   }
 
   lifecycle {
-    create_before_destroy = true
+    # create_before_destroy = true
     # prevent_destroy = true
     # replace_triggered_by = [
     #   azurerm_resource_group.demo
     # ]
-    # ignore_changes = [
-    #   tags
-    # ]
+    ignore_changes = [
+      tags
+    ]
   }
 }
