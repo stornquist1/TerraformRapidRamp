@@ -1,0 +1,51 @@
+
+variables:
+- name: serviceConnection 
+  value: "carml-spn"
+- name: backendResourceGroupName
+  value: "test-sa-03262023"
+- name: backendStorageAccountName
+  value: "testsa03262023"
+- name: backendContainerName
+  value: "testcontainer2"
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+
+stages:
+  - stage: baseinfra_stage
+    displayName: 'Base Infrastructure Stage'
+    jobs:
+      - job: baseinfra_Build
+        displayName: "Base Infrastructure Build"
+        steps:
+        - checkout: self
+          persistCredentials: true
+        - template: /PipelineTemplates/Terraform/Terraform.yaml
+          parameters:
+            serviceConnection: ${{ variables.serviceConnection  }}
+            backendResourceGroupName: ${{ variables.backendResourceGroupName }}
+            backendStorageAccountName: ${{ variables.backendStorageAccountName }}
+            backendContainerName: ${{ variables.backendContainerName }}
+            currentWorkingDirectory: '$(System.DefaultWorkingDirectory)/Terraform/base-infra'
+  - stage: web_servers_stage
+    displayName: 'Web Servers Stage'
+    jobs:
+      - job: vms_build
+        displayName: 'Web Servers Build'
+        steps:
+        - checkout: self
+          persistCredentials: true
+        - template: /PipelineTemplates/Terraform/Terraform.yaml
+          parameters:
+            serviceConnection: ${{ variables.serviceConnection  }}
+            backendResourceGroupName: ${{ variables.backendResourceGroupName }}
+            backendStorageAccountName: ${{ variables.backendStorageAccountName }}
+            backendContainerName: ${{ variables.backendContainerName }}
+            currentWorkingDirectory: '$(System.DefaultWorkingDirectory)/Terraform/web-servers'
+
+
+
