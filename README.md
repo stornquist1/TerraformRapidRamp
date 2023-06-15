@@ -1,6 +1,6 @@
 # Terraform Rapid Ramp
 
-### Use this word doc if to get set up(also pasted below): https://microsoft-my.sharepoint.com/:w:/p/stornquist/EWkz8W8tEQJErTSEUgcqgVgBp86j2QaXzOlcimGCrgXTQA?e=jGLQsu 
+### Use this word doc to get set up(also pasted below): https://microsoft-my.sharepoint.com/:w:/p/stornquist/EWkz8W8tEQJErTSEUgcqgVgBp86j2QaXzOlcimGCrgXTQA?e=jGLQsu 
 
 ## Terraform Rapid Ramp Environment Setup:
 
