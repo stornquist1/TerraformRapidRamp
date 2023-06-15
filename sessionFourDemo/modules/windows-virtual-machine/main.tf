@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 data "azurerm_resource_group" "vm_resource_group" {
-  name = "NetworkWatcherRG"
+  name = "test1"
 }
 
 # #no loner have to track ID, exposes more values

@@ -44,7 +44,7 @@ locals{
         }
     }
 
-    vMap2= {
+    vmMap2= {
         "vm1" = {
             name = "my-F2-vm-0"
             size = "Standard_F2"
@@ -55,7 +55,7 @@ locals{
             size = "Standard_A1_v2"
             num = 5
         },
-        1 = {
+        "vm3" = {
             name = "my-A1-vm-1"
             size = "Standard_A1_v2"
         }
@@ -71,6 +71,7 @@ module "myVM1" {
     virtual_network_name = module.myVnet_Snet.vnet_name
     subnet_name = module.myVnet_Snet.subnet_name
     subnet_id = module.myVnet_Snet.subnet_id
+    
     name = each.value.name
     size = each.value.size
 }
