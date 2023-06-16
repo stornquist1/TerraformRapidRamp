@@ -1,0 +1,35 @@
+parameters:
+  serviceConnection:
+  backendResourceGroupName:
+  backendStorageAccountName:
+  backendContainerName:
+  currentWorkingDirectory:
+
+steps:
+  - task: AzureCLI@2
+    displayName: Terraform Init
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection}}
+      addSpnToEnvironment: true
+      scriptType: bash
+      scriptPath: ./PipelineTemplates/Terraform/TerraformInit.sh
+      arguments:  ${{ parameters.backendResourceGroupName }} ${{ parameters.backendStorageAccountName }} ${{ parameters.backendContainerName }}
+      workingDirectory: ${{ parameters.currentWorkingDirectory }}
+  - task: AzureCLI@2
+    displayName: Terraform Plan
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection}}
+      addSpnToEnvironment: true
+      scriptType: bash
+      scriptPath: ./PipelineTemplates/Terraform/TerraformPlan.sh
+      arguments:  ${{ parameters.backendResourceGroupName }} ${{ parameters.backendStorageAccountName }} ${{ parameters.backendContainerName }}
+      workingDirectory: ${{ parameters.currentWorkingDirectory }}
+  - task: AzureCLI@2
+    displayName: Terraform Apply
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection}}
+      addSpnToEnvironment: true
+      scriptType: bash
+      scriptPath: ./PipelineTemplates/Terraform/TerraformApply.sh
+      arguments:  ${{ parameters.backendResourceGroupName }} ${{ parameters.backendStorageAccountName }} ${{ parameters.backendContainerName }}
+      workingDirectory: ${{ parameters.currentWorkingDirectory }}

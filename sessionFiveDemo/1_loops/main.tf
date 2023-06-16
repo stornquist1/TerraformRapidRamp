@@ -34,8 +34,8 @@ resource "azurerm_resource_group" "demo" {
 }
 
 # resource "azurerm_user_assigned_identity" "demoOne" {
-#   count               = 3                                              // can also count length(var.identity_suffix)
-#   name                = "id-count-${var.identity_suffix[count.index]}" // count.index is the index of the current element in the list
+#   count               = 3                         // can also count length(var.identity_suffix)
+#   name                = "id-count-${count.index}" // count.index is the index of the current element in the list ${var.identity_suffix[count.index]}
 #   resource_group_name = azurerm_resource_group.demo.name
 #   location            = azurerm_resource_group.demo.location
 
@@ -44,9 +44,9 @@ resource "azurerm_resource_group" "demo" {
 #   }
 # }
 
-# resource "azurerm_user_assigned_identity" "demoTwo" {
-#   for_each            = toset(var.identity_suffix) // toset() is used to convert the list to a set
-#   name                = "id-foreach-${each.value}" // each.value is the value of the current element in the list
+# resource "azurerm_user_assigned_identity" "demoTwo" { // for_each on a set
+#   for_each            = toset(var.identity_suffix)    // toset() is used to convert the list to a set.
+#   name                = "id-foreach-${each.value}"    // each.value is the value of the current element in the list
 #   resource_group_name = azurerm_resource_group.demo.name
 #   location            = azurerm_resource_group.demo.location
 
@@ -55,23 +55,29 @@ resource "azurerm_resource_group" "demo" {
 #   }
 # }
 
-resource "azurerm_virtual_network" "demo" {
-  name                = "vnet-demo"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.demo.location
-  resource_group_name = azurerm_resource_group.demo.name
+# resource "azurerm_virtual_network" "demo" { // for_each on a map
+#   name                = "vnet-demo"
+#   address_space       = ["10.0.0.0/16"]
+#   location            = azurerm_resource_group.demo.location
+#   resource_group_name = azurerm_resource_group.demo.name
 
-  dynamic "subnet" {
-    for_each = var.subnets
-    content {
-      name           = subnet.key
-      address_prefix = subnet.value
-    }
-  }
-}
+#   dynamic "subnet" { // dynamically construct repeatable nested blocks
+#     for_each = var.subnets
+#     content {
+#       name           = subnet.key
+#       address_prefix = subnet.value
+#     }
+#   }
+# }
 
 # output "user_assigned_identity_name" {
-#   value = azurerm_user_assigned_identity.demoOne.*.name
+#   value = azurerm_user_assigned_identity.demoOne.*.name // wildcard in output to reference all instances of a resource created with the count argument
+# }
+
+# output "user_assigned_identity_id" {
+#   value = {
+#     for identity in azurerm_user_assigned_identity.demoTwo : identity.name => identity.id
+#   }
 # }
 
 # output "user_assigned_identity_id_beta" {
