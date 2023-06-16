@@ -23,18 +23,18 @@ terraform {
 provider "azurerm" {
   features {}
 
-  subscription_id = "0f87398b-35e8-4c05-afe6-e7f65a7dde53"
-  tenant_id       = "72f988bf-86f1-41af-91ab-2d7cd011db47"
+  subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
 }
 
 data "azurerm_key_vault" "key_vault" {
   name = "inc-kv-001"
-  resource_group_name = ""
+  resource_group_name = "appsvc_windows_centralus_basic"
 }
 
 
 data "azurerm_key_vault_secret" "admin_password" {
-  name = "admin-password"
+  name = "superExtraSecret"
   key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
