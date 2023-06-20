@@ -28,7 +28,7 @@ variable "subnets" {
 }
 
 resource "azurerm_resource_group" "demo" {
-  name     = "rg-demo"
+  name     = "rg-demo-2"
   location = "eastus"
 }
 
